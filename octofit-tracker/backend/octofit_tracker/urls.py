@@ -47,6 +47,7 @@ def api_root(request, format=None):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', api_root, name='api-root'),
-    path('', include(router.urls)),
+    # Expose the API under the /api/ prefix so frontend requests to /api/.. resolve
+    path('api/', api_root, name='api-root'),
+    path('api/', include(router.urls)),
 ]
