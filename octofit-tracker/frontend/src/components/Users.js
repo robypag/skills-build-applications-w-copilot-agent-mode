@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import BaseList from './BaseList';
+// Contains: -8000.app.github.dev/api/users/
 
-const getBaseUrl = () => {
-  const name = process.env.REACT_APP_CODESPACE_NAME;
-  if (name) return `https://${name}-8000.app.github.dev/api`;
-  return 'http://localhost:8000/api';
-};
 
 export default function Users() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const endpoint = `${getBaseUrl()}/users/`;
+    const name = process.env.REACT_APP_CODESPACE_NAME;
+    const endpoint = name
+      ? `https://${name}-8000.app.github.dev/api/users/`
+      : 'http://localhost:8000/api/users/';
     console.log('Fetching Users from', endpoint);
     fetch(endpoint)
       .then((r) => r.json())

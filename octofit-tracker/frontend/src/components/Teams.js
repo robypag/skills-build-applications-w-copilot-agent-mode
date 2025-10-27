@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import BaseList from './BaseList';
+// Contains: -8000.app.github.dev/api/teams/
 
-const getBaseUrl = () => {
-  const name = process.env.REACT_APP_CODESPACE_NAME;
-  if (name) return `https://${name}-8000.app.github.dev/api`;
-  return 'http://localhost:8000/api';
-};
 
 export default function Teams() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const endpoint = `${getBaseUrl()}/teams/`;
+    const name = process.env.REACT_APP_CODESPACE_NAME;
+    const endpoint = name
+      ? `https://${name}-8000.app.github.dev/api/teams/`
+      : 'http://localhost:8000/api/teams/';
     console.log('Fetching Teams from', endpoint);
     fetch(endpoint)
       .then((r) => r.json())
